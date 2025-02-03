@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
         features = "src/test/java/features",  // Runs all feature files inside this directory
         glue = "stepDefinitions",  // Step definitions package
-        tags = "@smokeTest",  // Runs only scenarios with @smokeTes
+        //tags = "@smokeTest",  // Runs only scenarios with @smokeTes
         plugin = {"pretty", "html:target/cucumber-reports", "json:target/cucumber.json"},  // Generates reports
         monochrome = true  // Improves console readability
 )
