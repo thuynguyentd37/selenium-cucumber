@@ -1,38 +1,41 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeOptions;
+import pages.*;
+
 
 public class LoginSteps {
     WebDriver driver = Hooks.getDriver();
+    Page_Login LoginPage;
+    Page_CuraHomepage CuraHomepage ;
+
 
     @Given("the user is on the login page")
     public void the_user_is_on_the_login_page() {
         driver.get("http://demoaut.katalon.com");
+        LoginPage = new Page_Login(driver);
+        CuraHomepage = new Page_CuraHomepage(driver);
     }
 
     @When("the user enters a valid username and password")
     public void the_user_enters_a_valid_username_and_password() {
-        driver.findElement(By.cssSelector("#btn-make-appointment")).click();
-        driver.findElement(By.cssSelector("input#txt-username")).sendKeys("John Doe");
-        driver.findElement(By.cssSelector("input#txt-password")).sendKeys("ThisIsNotAPassword");
+        CuraHomepage.clickMakeAppointment();
+        LoginPage.enterUsername("John Doe");
+        LoginPage.enterPassword("ThisIsNotAPassword");
     }
     @When("the user enters an invalid username and password")
     public void the_user_enters_an_invalid_username_and_password() {
-        driver.findElement(By.cssSelector("#btn-make-appointment")).click();
-        driver.findElement(By.cssSelector("input#txt-username")).sendKeys("John Doe 1");
-        driver.findElement(By.cssSelector("input#txt-password")).sendKeys("ThisIsNotAPassword");
+        CuraHomepage.clickMakeAppointment();
+        LoginPage.enterUsername("John Doe 1");
+        LoginPage.enterPassword("ThisIsNotAPassword");
     }
 
 
     @When("clicks on the login button")
     public void clicks_on_the_login_button() {
-        driver.findElement(By.cssSelector(".btn-default")).click();
+        LoginPage.clickLogin();
     }
 
     @Then("the user should be redirected to the homepage")
